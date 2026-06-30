@@ -1,0 +1,28 @@
+# Maven
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+# IDE
+.idea/
+*.iml
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Secrets — never commit keys or env files
+*.pem
+.env
+.env.*
+
+# JAR artifacts (built by CI/local Maven)
+*.jar
+!/.mvn/wrapper/maven-wrapper.jar
