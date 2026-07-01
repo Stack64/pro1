@@ -41,4 +41,11 @@ class ItemControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].name").value("Test Item"));
     }
+
+    @Test
+    void actuatorHealth() throws Exception {
+        mockMvc.perform(get("/actuator/health"))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.status").value("UP"));
+}
 }
