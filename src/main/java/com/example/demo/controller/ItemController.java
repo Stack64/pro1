@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -73,5 +74,25 @@ public class ItemController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Item not found");
        }
        return ResponseEntity.noContent().build();
+    }
+    @GetMapping("/count")
+    public Map<String, Integer> countItems() {
+        return Map.of("count", items.size());
+    }
+
+    @GetMapping("/search")
+    public List<Item> searchItems(@RequestParam("q") String query) {
+        String needle = query.toLowerCase();
+        List<Item> matches = new ArrayList<>();
+        for (Item item : items.values()) {
+            boolean nameMatch = item.getName() != null
+                    && item.getName().toLowerCase().contains(needle);
+            boolean descMatch = item.getDescription() != null
+                    && item.getDescription().toLowerCase().contains(needle);
+            if (nameMatch || descMatch) {
+                matches.add(item);
+            }
+        }
+        return matches;
     }
 }
